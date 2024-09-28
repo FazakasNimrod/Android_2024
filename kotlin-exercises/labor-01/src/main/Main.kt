@@ -1,4 +1,5 @@
 package main
+import kotlin.random.Random
 
 fun main() {
     // 1. Feladat: Összeadás és String template használata -----------------------------
@@ -118,6 +119,40 @@ fun main() {
     mutableDaysOfWeek.sort()
     println("Sorted list alphabetically: $mutableDaysOfWeek")
     println("-----------------------------------------------------------\n")
+
+    // 8. Feladat:
+
+    // 1. Generate an array of 10 random integers between 0 and 100
+    val randomNumbers = Array(10) { Random.nextInt(0, 101) }
+
+    println("8. Feladat: Arrays")
+
+    // Print each element of the array in a new line using forEach
+    println("Generated random numbers:")
+    randomNumbers.forEach { println(it) }
+    println("-----------------------------------------------------------")
+
+    // 2. Print the array sorted in ascending order
+    val sortedNumbers = randomNumbers.sorted()
+    println("Sorted numbers (ascending): $sortedNumbers")
+    println("-----------------------------------------------------------")
+
+    // 3. Check whether the array contains any even number
+    val hasEvenNumbers = randomNumbers.any { it % 2 == 0 }
+    println("Contains any even numbers: $hasEvenNumbers")
+    println("-----------------------------------------------------------")
+
+    // 4. Check whether all the numbers are even
+    val allEvenNumbers = randomNumbers.all { it % 2 == 0 }
+    println("All numbers are even: $allEvenNumbers")
+    println("-----------------------------------------------------------")
+
+    // 5. Calculate the average using forEach
+    var sum = 0
+    randomNumbers.forEach { sum += it }
+    val average = sum.toDouble() / randomNumbers.size
+    println("Average of generated numbers: $average")
+    println("-----------------------------------------------------------")
 }
 
 // Function to check if a number is prime
