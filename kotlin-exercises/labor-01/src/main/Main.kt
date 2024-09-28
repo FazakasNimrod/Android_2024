@@ -93,6 +93,31 @@ fun main() {
     val averageLengthOfDays = lengthOfDays.average()
     println("Average length of days: $averageLengthOfDays")
     println("-----------------------------------------------------------\n")
+
+    // 7. Feladat: Mutable listák
+
+    // Immutable list of days of the week
+    val daysOfWeek3 = listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+
+    println("7. Feladat: Mutable listák")
+
+    // 1. Convert the immutable list into a mutable one and remove days containing the letter 'n'
+    val mutableDaysOfWeek = daysOfWeek3.toMutableList()
+    mutableDaysOfWeek.removeAll { it.contains('n', ignoreCase = true) }
+    println("Mutable list after removing days containing 'n': $mutableDaysOfWeek")
+    println("-----------------------------------------------------------")
+
+    // 2. Print each element of the list with its index using withIndex()
+    println("Elements with their index:")
+    for ((index, day) in mutableDaysOfWeek.withIndex()) {
+        println("Item at $index is $day")
+    }
+    println("-----------------------------------------------------------")
+
+    // 3. Sort the mutable list alphabetically
+    mutableDaysOfWeek.sort()
+    println("Sorted list alphabetically: $mutableDaysOfWeek")
+    println("-----------------------------------------------------------\n")
 }
 
 // Function to check if a number is prime
