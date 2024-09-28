@@ -44,12 +44,27 @@ fun main() {
     println("Prime numbers: ${primes.joinToString(", ")}")
     println("-----------------------------------------------------------\n")
 
-    // 4. Feladat: Páros számok szűrése és kiíratása listából -------------------------
+    // 5. Feladat: Páros számok szűrése és kiíratása listából -------------------------
 
     val numbers = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-    println("4. Feladat: Páros számok kiíratása")
+    println("5. Feladat: Páros számok kiíratása")
     printEvenNumbers(numbers)
-    println("-----------------------------------------------------------")
+    println("-----------------------------------------------------------\n")
+
+    // 4. Feladat: kódolás és dekódolás
+
+    val message = "Hello World!"
+
+    println("4. Feladat: Kódolás és dekódolás")
+
+    // Test encoding
+    val encodedMessage = messageCoding(message, ::encode)
+    println("Encoded message: $encodedMessage")
+
+    // Test decoding
+    val decodedMessage = messageCoding(encodedMessage, ::decode)
+    println("Decoded message: $decodedMessage")
+    println("-----------------------------------------------------------\n")
 }
 
 // Function to check if a number is prime
@@ -65,3 +80,24 @@ fun isPrime(num: Int): Boolean {
 
 // Compact function to print even numbers from a list
 fun printEvenNumbers(numbers: List<Int>) = numbers.filter { it % 2 == 0 }.forEach { println(it) }
+
+// Encode function using a Caesar cipher (shift characters by 3)
+fun encode(msg: String): String = msg.map {
+    if (it.isLetter()) shiftChar(it, 3) else it
+}.joinToString("")
+
+// Decode function (reverse the Caesar cipher shift)
+fun decode(msg: String): String = msg.map {
+    if (it.isLetter()) shiftChar(it, -3) else it
+}.joinToString("")
+
+// Helper function to shift characters by a given number of positions
+fun shiftChar(c: Char, shift: Int): Char {
+    val base = if (c.isUpperCase()) 'A' else 'a'
+    return ((c - base + shift + 26) % 26 + base.toInt()).toChar()
+}
+
+// Higher-order function to encode or decode a message
+fun messageCoding(msg: String, func: (String) -> String): String {
+    return func(msg)
+}
