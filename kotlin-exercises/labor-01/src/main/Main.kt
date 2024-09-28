@@ -65,6 +65,34 @@ fun main() {
     val decodedMessage = messageCoding(encodedMessage, ::decode)
     println("Decoded message: $decodedMessage")
     println("-----------------------------------------------------------\n")
+
+    // 6. Feladat: Map function használata
+
+    val intNumbers = listOf(1, 2, 3, 4, 5)
+    val days_Of_Week = listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+
+    println("6. Feladat: Map haszálata")
+
+    // 1. Double the elements of the list of integers
+    val doubledNumbers = intNumbers.map { it * 2 }
+    println("Doubled numbers: $doubledNumbers")
+
+    // 2. Print the days of the week capitalized
+    val capitalizedDays = days_Of_Week.map { it.uppercase() }
+    println("Capitalized days: $capitalizedDays")
+
+    // 3. Print the first character of each day capitalized
+    val firstCharLowercase = days_Of_Week.map { it.first().lowercase() }
+    println("First character of each day (lowercase): $firstCharLowercase")
+
+    // 4. Print the length of each day (number of characters)
+    val lengthOfDays = days_Of_Week.map { it.length }
+    println("Length of each day: $lengthOfDays")
+
+    // 5. Compute the average length of days
+    val averageLengthOfDays = lengthOfDays.average()
+    println("Average length of days: $averageLengthOfDays")
+    println("-----------------------------------------------------------\n")
 }
 
 // Function to check if a number is prime
