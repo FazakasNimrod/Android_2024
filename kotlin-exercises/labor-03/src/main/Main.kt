@@ -21,4 +21,6 @@ fun main(args: Array<String>) {
     // Controller teszt
     val itemController = ItemController(service)
     itemController.quiz(5)
+
+    // hibakezeles, JSON, UI 
 }
