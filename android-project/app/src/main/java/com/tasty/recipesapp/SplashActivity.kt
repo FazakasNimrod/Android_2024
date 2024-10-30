@@ -2,8 +2,13 @@ package com.tasty.recipesapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
+import android.view.animation.AnimationUtils
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -16,21 +21,43 @@ class SplashActivity : AppCompatActivity() {
     private val TAG = "TAGSplashActivity"
     private lateinit var binding: ActivitySplashBinding
 
+    private val SPLASH_TIME_OUT: Long = 2000
+
+
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        binding = ActivitySplashBinding.inflate(layoutInflater)
+//        setContentView(binding.root)
+//
+//        binding.button.setOnClickListener {
+//            val message = binding.editText.text.toString()
+//            val intent = Intent(this, MainActivity::class.java)
+//            intent.putExtra("message", message)
+//            startActivity(intent)
+//        }
+//
+//        Log.d(TAG, "onCreate: SplashActivity created.")
+//        Toast.makeText(this, "Elindult", Toast.LENGTH_LONG).show()
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySplashBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_splash)
 
-        binding.button.setOnClickListener {
-            val message = binding.editText.text.toString()
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("message", message)
+        val logoImageView = findViewById<ImageView>(R.id.logoImageView)
+        val appNameTextView = findViewById<TextView>(R.id.appNameTextView)
+        val taglineTextView = findViewById<TextView>(R.id.taglineTextView)
+
+        val fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in)
+        logoImageView.startAnimation(fadeIn)
+        appNameTextView.startAnimation(fadeIn)
+        taglineTextView.startAnimation(fadeIn)
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            val intent = Intent(this@SplashActivity, MainActivity::class.java)
             startActivity(intent)
-        }
-
-        Log.d(TAG, "onCreate: SplashActivity created.")
-        Toast.makeText(this, "Elindult", Toast.LENGTH_LONG).show()
+            finish()
+        }, SPLASH_TIME_OUT)
     }
 
     override fun onStart() {
