@@ -7,6 +7,10 @@ android {
     namespace = "com.tasty.recipesapp"
     compileSdk = 34
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId = "com.tasty.recipesapp"
         minSdk = 24
