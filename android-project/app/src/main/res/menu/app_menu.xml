@@ -2,11 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/homeFragment"
-        android:title="Home" />
+        android:title="Home"
+        android:icon="@drawable/ic_home" /> <!-- Replace with your icon resource -->
     <item
         android:id="@+id/recipesFragment"
-        android:title="Recipes" />
+        android:title="Recipes"
+        android:icon="@drawable/ic_recipes" /> <!-- Replace with your icon resource -->
     <item
         android:id="@+id/profileFragment"
-        android:title="Profile" />
+        android:title="Profile"
+        android:icon="@drawable/ic_profile" /> <!-- Replace with your icon resource -->
 </menu>
+

@@ -9,6 +9,7 @@ import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import com.tasty.recipesapp.databinding.ActivityMainBinding
 
+
 class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
     private lateinit var binding: ActivityMainBinding
@@ -22,6 +23,27 @@ class MainActivity : AppCompatActivity() {
         binding.textView.text = message
 
         Log.d(TAG, "onCreate: MainActivity created.")
+
+        binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
+            val navController = findNavController(R.id.nav_host_fragment)
+            when (menuItem.itemId) {
+                R.id.homeFragment -> {
+                    navController.navigate(R.id.homeFragment)
+                    true // Return true to indicate that the item selection was handled
+                }
+                R.id.recipesFragment -> {
+                    navController.navigate(R.id.recipesFragment)
+                    true
+                }
+                R.id.profileFragment -> {
+                    navController.navigate(R.id.profileFragment)
+                    true
+                }
+                else -> false // Return false for unhandled selections
+            }
+        }
+
+        binding.bottomNavigation.selectedItemId = R.id.homeFragment
     }
 
     override fun onStart() {
