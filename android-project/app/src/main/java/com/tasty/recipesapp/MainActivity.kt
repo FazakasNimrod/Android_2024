@@ -3,6 +3,10 @@ package com.tasty.recipesapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
 import com.tasty.recipesapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -44,4 +48,28 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         Log.d(TAG, "onDestroy: MainActivity destroyed.")
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.app_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.homeFragment -> {
+                findNavController(R.id.nav_host_fragment).navigate(R.id.homeFragment)
+                return true
+            }
+            R.id.recipesFragment -> {
+                findNavController(R.id.nav_host_fragment).navigate(R.id.recipesFragment)
+                return true
+            }
+            R.id.profileFragment -> {
+                findNavController(R.id.nav_host_fragment).navigate(R.id.profileFragment)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 }
