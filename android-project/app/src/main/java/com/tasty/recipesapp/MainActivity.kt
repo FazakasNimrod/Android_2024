@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.tasty.recipesapp.databinding.ActivityMainBinding
 
 
@@ -19,24 +19,23 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val message = intent.getStringExtra("message") ?: "No message received"
-        binding.textView.text = message
-
         Log.d(TAG, "onCreate: MainActivity created.")
 
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment
+        val navController = navHostFragment?.navController
+
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
-            val navController = findNavController(R.id.nav_host_fragment)
             when (menuItem.itemId) {
                 R.id.homeFragment -> {
-                    navController.navigate(R.id.homeFragment)
+                    navController?.navigate(R.id.homeFragment)
                     true // Return true to indicate that the item selection was handled
                 }
                 R.id.recipesFragment -> {
-                    navController.navigate(R.id.recipesFragment)
+                    navController?.navigate(R.id.recipesFragment)
                     true
                 }
                 R.id.profileFragment -> {
-                    navController.navigate(R.id.profileFragment)
+                    navController?.navigate(R.id.profileFragment)
                     true
                 }
                 else -> false // Return false for unhandled selections
@@ -44,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.bottomNavigation.selectedItemId = R.id.homeFragment
+
     }
 
     override fun onStart() {
