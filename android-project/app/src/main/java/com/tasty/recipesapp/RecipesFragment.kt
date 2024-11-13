@@ -1,44 +1,58 @@
 package com.tasty.recipesapp
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.navigation.fragment.findNavController
+import com.tasty.recipesapp.adapters.RecipeAdapter
+import com.tasty.recipesapp.domain.model.RecipeModel
 import com.tasty.recipesapp.viewmodel.RecipeListViewModel
 
 class RecipesFragment : Fragment() {
 
     private lateinit var recipeViewModel: RecipeListViewModel
+    private lateinit var recipeAdapter: RecipeAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment without binding (UI not needed)
+        // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_recipes, container, false)
 
-        // Initialize ViewModel using ViewModelProvider
+        // Initialize RecyclerView
+        val recyclerView = rootView.findViewById<RecyclerView>(R.id.recipesRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        // Initialize ViewModel
         recipeViewModel = ViewModelProvider(this).get(RecipeListViewModel::class.java)
         recipeViewModel.fetchRecipeData()
 
-        // Observe the recipe list and log the recipe details
-        recipeViewModel.recipeList.observe(viewLifecycleOwner, Observer { recipes ->
-            // Loop through the list of RecipeModels and print properties
-            for (recipe in recipes) {
-                //Log.d("RecipeData", "Recipe ID: ${recipe.id}")
-                Log.d("RecipeData", "Recipe Name: ${recipe.name}")
-                Log.d("RecipeData", "Recipe Description: ${recipe.description}")
-                //Log.d("RecipeData", "Recipe Thumbnail: ${recipe.thumbnailUrl}")
-                //Log.d("RecipeData", "Recipe Keywords: ${recipe.keywords}")
-                //Log.d("RecipeData", "Recipe Servings: ${recipe.numServings}")
-            }
-        })
+        // Initialize Adapter with empty list initially
+        recipeAdapter = RecipeAdapter(emptyList()) { recipe -> navigateToRecipeDetail(recipe) }
+        recyclerView.adapter = recipeAdapter
 
-        // Return the root view
+        // Observe the recipe list from ViewModel and update RecyclerView
+        recipeViewModel.recipeList.observe(viewLifecycleOwner) { recipes ->
+            // Update adapter with new recipe list
+            recipeAdapter = RecipeAdapter(recipes) { recipe -> navigateToRecipeDetail(recipe) }
+            recyclerView.adapter = recipeAdapter
+        }
+
         return rootView
+    }
+
+    // Navigation function to navigate to RecipeDetailFragment with selected recipe data
+    private fun navigateToRecipeDetail(recipe: RecipeModel) {
+        findNavController().navigate(
+            R.id.action_recipesFragment_to_recipeDetailFragment,
+            bundleOf("recipeId" to recipe.id)
+        )
     }
 }

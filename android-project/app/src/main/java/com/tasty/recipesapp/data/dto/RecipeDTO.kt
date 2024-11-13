@@ -20,7 +20,10 @@ data class RecipeDTO(
 
 fun RecipeDTO.toModel(): RecipeModel {
     return RecipeModel(
+        id = this.recipeID,
         name = this.name,
-        description = this.description
+        description = this.description,
+        thumbnailUrl = this.thumbnailUrl,
+        keywords = this.keywords
     )
 }

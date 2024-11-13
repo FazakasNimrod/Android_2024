@@ -36,11 +36,11 @@ class RecipeRepository(private val context: Context) {
 
     private fun RecipeDTO.toModel(): RecipeModel {
         return RecipeModel(
-            //id = this.recipeID,
+            id = this.recipeID,
             name = this.name,
             description = this.description,
-            //thumbnailUrl = this.thumbnailUrl,
-            //keywords = this.keywords,
+            thumbnailUrl = this.thumbnailUrl,
+            keywords = this.keywords,
             //isPublic = this.isPublic,
             //userEmail = this.userEmail,
             //originalVideoUrl = this.originalVideoUrl,
