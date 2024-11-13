@@ -3,7 +3,7 @@ package com.tasty.recipesapp.data.dto
 import com.tasty.recipesapp.domain.model.RecipeModel
 
 data class RecipeDTO(
-    val recipeId: Long,
+    val recipeID: Int,
     val name: String,
     val description: String,
     val thumbnailUrl: String,
@@ -12,14 +12,15 @@ data class RecipeDTO(
     val userEmail: String,
     val originalVideoUrl: String,
     val country: String,
-    val numServings: Long,
-    //val components: List<Any?>,
-    //val instructions: List<Any?>,
+    val numServings: Int,
+    val components: List<String>,
+    val instructions: List<String>
 )
 
 
 fun RecipeDTO.toModel(): RecipeModel {
     return RecipeModel(
-        name = this.name
+        name = this.name,
+        description = this.description
     )
 }
