@@ -13,8 +13,8 @@ data class RecipeDTO(
     val originalVideoUrl: String,
     val country: String,
     val numServings: Int,
-    val components: List<String>,
-    val instructions: List<String>
+    //val components: List<String>,
+    //val instructions: List<String>
 )
 
 
@@ -24,6 +24,11 @@ fun RecipeDTO.toModel(): RecipeModel {
         name = this.name,
         description = this.description,
         thumbnailUrl = this.thumbnailUrl,
-        keywords = this.keywords
+        keywords = this.keywords,
+        isPublic = this.isPublic,
+        userEmail = this.userEmail,
+        originalVideoUrl = this.originalVideoUrl,
+        country = this.country,
+        numServings = this.numServings
     )
 }

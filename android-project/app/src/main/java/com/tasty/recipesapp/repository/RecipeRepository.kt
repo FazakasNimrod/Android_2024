@@ -41,11 +41,11 @@ class RecipeRepository(private val context: Context) {
             description = this.description,
             thumbnailUrl = this.thumbnailUrl,
             keywords = this.keywords,
-            //isPublic = this.isPublic,
-            //userEmail = this.userEmail,
-            //originalVideoUrl = this.originalVideoUrl,
-            //country = this.country,
-            //numServings = this.numServings
+            isPublic = this.isPublic,
+            userEmail = this.userEmail,
+            originalVideoUrl = this.originalVideoUrl,
+            country = this.country,
+            numServings = this.numServings
         )
     }
 }

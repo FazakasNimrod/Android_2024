@@ -26,7 +26,11 @@
         android:id="@+id/recipeDetailFragment"
         android:name="com.tasty.recipesapp.RecipeDetailFragment"
         android:label="fragment_recipe_detail"
-        tools:layout="@layout/fragment_recipe_detail" />
+        tools:layout="@layout/fragment_recipe_detail" >
+        <argument
+            android:name="recipeId"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/recipesFragment"
         android:name="com.tasty.recipesapp.RecipesFragment"

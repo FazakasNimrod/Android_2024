@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.navigation.fragment.findNavController
@@ -50,9 +51,15 @@ class RecipesFragment : Fragment() {
 
     // Navigation function to navigate to RecipeDetailFragment with selected recipe data
     private fun navigateToRecipeDetail(recipe: RecipeModel) {
-        findNavController().navigate(
-            R.id.action_recipesFragment_to_recipeDetailFragment,
-            bundleOf("recipeId" to recipe.id)
-        )
+
+        val fragment = RecipeDetailFragment()
+        fragment.arguments = Bundle().apply {
+            putInt("recipe", recipe.id)
+        }
+
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.nav_host_fragment, fragment)
+            .commit()
     }
 }
+

@@ -17,5 +17,10 @@ class RecipeListViewModel(application: Application) : AndroidViewModel(applicati
     fun fetchRecipeData() {
         _recipeList.value = recipeRepository.getAllRecipes()
     }
+
+    fun getRecipeById(id: Int): RecipeModel? {
+        return recipeList.value?.find { it.id == id }
+    }
+
 }
 
