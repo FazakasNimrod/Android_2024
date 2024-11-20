@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.tasty.recipesapp.databinding.ActivityMainBinding
@@ -27,15 +28,15 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.homeFragment -> {
-                    navController?.navigate(R.id.homeFragment)
+                    navigateToFragment(HomeFragment())
                     true // Return true to indicate that the item selection was handled
                 }
                 R.id.recipesFragment -> {
-                    navController?.navigate(R.id.recipesFragment)
+                    navigateToFragment(RecipesFragment())
                     true
                 }
                 R.id.profileFragment -> {
-                    navController?.navigate(R.id.profileFragment)
+                    navigateToFragment(ProfileFragment())
                     true
                 }
                 else -> false // Return false for unhandled selections
@@ -46,6 +47,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun navigateToFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.nav_host_fragment, fragment)
+            .commit()
+    }
     override fun onStart() {
         super.onStart()
         Log.d(TAG, "onStart: MainActivity started.")
