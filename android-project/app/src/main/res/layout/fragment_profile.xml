@@ -17,11 +17,11 @@
         android:id="@+id/fab_add_recipe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="Add Recipe"
-        app:srcCompat="@drawable/plus"
         android:layout_margin="16dp"
+        android:contentDescription="Add Recipe"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/plus" />
 </FrameLayout>
 
 <!--    <?xml version="1.0" encoding="utf-8"?>-->

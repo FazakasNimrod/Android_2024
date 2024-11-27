@@ -1,7 +1,12 @@
+import org.jetbrains.kotlin.gradle.plugin.KaptExtension
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt") // Correctly applied plugin
+
 }
+
 
 android {
     namespace = "com.tasty.recipesapp"
@@ -56,6 +61,9 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("com.google.android.material:material:1.8.0")
 
-
+    // Room dependencies
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
 
 }
