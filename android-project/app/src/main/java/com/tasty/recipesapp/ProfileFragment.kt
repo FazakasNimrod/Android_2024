@@ -11,11 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tasty.recipesapp.adapters.RecipeAdapter
 import com.tasty.recipesapp.domain.model.RecipeModel
+import com.tasty.recipesapp.viewmodel.ProfileViewModel
 import com.tasty.recipesapp.viewmodel.RecipeListViewModel
 
 class ProfileFragment : Fragment() {
 
-    private lateinit var recipeViewModel: RecipeListViewModel
+    private lateinit var recipeViewModel: ProfileViewModel
     private lateinit var recipeAdapter: RecipeAdapter
 
     override fun onCreateView(
@@ -30,8 +31,8 @@ class ProfileFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         // Initialize ViewModel
-        recipeViewModel = ViewModelProvider(this).get(RecipeListViewModel::class.java)
-        recipeViewModel.fetchRecipeData()
+        recipeViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        recipeViewModel.getAllRecipes()
 
         // Initialize Adapter with empty list initially
         recipeAdapter = RecipeAdapter(emptyList()) { recipe -> navigateToRecipeDetail(recipe) }
@@ -39,8 +40,8 @@ class ProfileFragment : Fragment() {
 
         // Observe the recipe list and display 3 random recipes
         recipeViewModel.recipeList.observe(viewLifecycleOwner) { recipes ->
-            val randomRecipes = recipes.shuffled().take(3) // Randomly select 3 recipes
-            recipeAdapter = RecipeAdapter(randomRecipes) { recipe -> navigateToRecipeDetail(recipe) }
+
+            recipeAdapter = RecipeAdapter(recipes) { recipe -> navigateToRecipeDetail(recipe) }
             recyclerView.adapter = recipeAdapter
         }
 

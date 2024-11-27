@@ -21,8 +21,13 @@ class RecipeRepository2(context: Context) {
         }
     }
 
-    suspend fun insertRecipe(recipe: RecipeEntity) {
-        recipeDao.insertRecipe(recipe)
+    suspend fun insertRecipe(recipe: RecipeModel) {
+        val recipeDto = recipe.toDTO()
+        val json = gson.toJson(recipeDto)
+        val recipeEntity = RecipeEntity(
+            json = json
+        )
+        recipeDao.insertRecipe(recipeEntity)
     }
 
     suspend fun getAllRecipeEntities(): List<RecipeEntity> {
@@ -47,4 +52,20 @@ class RecipeRepository2(context: Context) {
             numServings = this.numServings
         )
     }
+
+    private fun RecipeModel.toDTO(): RecipeDTO {
+        return RecipeDTO(
+            recipeID = this.id,
+            name = this.name,
+            description = this.description,
+            thumbnailUrl = this.thumbnailUrl,
+            keywords = this.keywords,
+            isPublic = this.isPublic,
+            userEmail = this.userEmail,
+            originalVideoUrl = this.originalVideoUrl,
+            country = this.country,
+            numServings = this.numServings
+        )
+    }
+
 }
