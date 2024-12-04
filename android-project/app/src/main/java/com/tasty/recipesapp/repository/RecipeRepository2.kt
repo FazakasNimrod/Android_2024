@@ -16,8 +16,9 @@ class RecipeRepository2(context: Context) {
         val roomRecipes = recipeDao.getAllRecipes()
         return roomRecipes.map { entity ->
             val jsonObject = JSONObject(entity.json)
-            jsonObject.put("id", entity.internalId)
-            gson.fromJson(jsonObject.toString(), RecipeDTO::class.java).toModel()
+            val recipe = gson.fromJson(jsonObject.toString(), RecipeDTO::class.java).toModel()
+            recipe.internalId = entity.internalId
+            recipe
         }
     }
 

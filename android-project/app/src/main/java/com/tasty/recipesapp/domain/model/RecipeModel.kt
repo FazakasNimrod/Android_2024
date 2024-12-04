@@ -10,5 +10,6 @@ data class RecipeModel(
     val userEmail: String = "",
     val originalVideoUrl: String = "",
     val country: String = "",
-    val numServings: Int = 1
+    val numServings: Int = 1,
+    var internalId: Long = 0,
 )

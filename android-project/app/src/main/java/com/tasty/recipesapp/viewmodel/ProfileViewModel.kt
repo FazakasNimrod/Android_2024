@@ -32,9 +32,11 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun deleteRecipe(recipe: RecipeEntity) {
+    fun deleteRecipe(recipeEntity: RecipeEntity) {
         viewModelScope.launch {
-            repository.deleteRecipe(recipe)
+            repository.deleteRecipe(recipeEntity)
+            // Refresh the recipe list
+            getAllRecipes()
         }
     }
 }
