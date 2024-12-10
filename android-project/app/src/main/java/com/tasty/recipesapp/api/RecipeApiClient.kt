@@ -17,7 +17,7 @@ class RecipeApiClient {
         .addInterceptor(AuthInterceptor(AUTH_TOKEN))
         .build()
 
-    private val recipeService: RecipeService
+    val recipeService: RecipeService
 
     init {
         val retrofit = Retrofit.Builder()

@@ -3,17 +3,21 @@ package com.tasty.recipesapp.repository
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.tasty.recipesapp.api.RecipeApiClient
+import com.tasty.recipesapp.api.RecipeService
 import com.tasty.recipesapp.data.dto.RecipeDTO
 import com.tasty.recipesapp.domain.model.RecipeModel
 import java.io.IOException
 import java.io.InputStreamReader
 
-class RecipeRepository(private val context: Context) {
+class RecipeRepository(private val context: Context, private val apiClient: RecipeApiClient) {
 
-    fun getAllRecipes(): List<RecipeModel> {
-        val recipeDtos = readAllRecipesFromJson(context)
+    suspend fun getAllRecipes(): List<RecipeModel> {
+        val recipeDtos = readAllRecipesFromApi()
         return recipeDtos.map { it.toModel() }
     }
+
+    private suspend fun readAllRecipesFromApi(): List<RecipeDTO> = apiClient.recipeService.getRecipes()
 
     private fun readAllRecipesFromJson(context: Context): List<RecipeDTO> {
         val gson = Gson()
@@ -37,15 +41,15 @@ class RecipeRepository(private val context: Context) {
     private fun RecipeDTO.toModel(): RecipeModel {
         return RecipeModel(
             id = this.recipeID,
-            name = this.name,
-            description = this.description,
-            thumbnailUrl = this.thumbnailUrl,
-            keywords = this.keywords,
-            isPublic = this.isPublic,
-            userEmail = this.userEmail,
-            originalVideoUrl = this.originalVideoUrl,
-            country = this.country,
-            numServings = this.numServings
+            name = this.name ?: "",
+            description = this.description ?: "",
+            thumbnailUrl = this.thumbnailUrl ?: "",
+            keywords = this.keywords ?: "",
+            isPublic = this.isPublic ?: false,
+            userEmail = this.userEmail ?: "",
+            originalVideoUrl = this.originalVideoUrl ?: "",
+            country = this.country ?: "",
+            numServings = this.numServings ?: 0
         )
     }
 }

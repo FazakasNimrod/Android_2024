@@ -42,15 +42,15 @@ class RecipeRepository2(context: Context) {
     private fun RecipeDTO.toModel(): RecipeModel {
         return RecipeModel(
             id = this.recipeID,
-            name = this.name,
-            description = this.description,
-            thumbnailUrl = this.thumbnailUrl,
-            keywords = this.keywords,
-            isPublic = this.isPublic,
-            userEmail = this.userEmail,
-            originalVideoUrl = this.originalVideoUrl,
-            country = this.country,
-            numServings = this.numServings
+            name = this.name ?: "",
+            description = this.description ?: "",
+            thumbnailUrl = this.thumbnailUrl ?: "",
+            keywords = this.keywords ?: "",
+            isPublic = this.isPublic ?: false,
+            userEmail = this.userEmail ?: "",
+            originalVideoUrl = this.originalVideoUrl ?: "",
+            country = this.country ?: "",
+            numServings = this.numServings ?: 0
         )
     }
 
