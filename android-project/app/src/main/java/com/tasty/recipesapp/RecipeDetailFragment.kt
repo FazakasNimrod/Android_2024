@@ -23,17 +23,19 @@ class RecipeDetailFragment : Fragment() {
     ): View {
         _binding = FragmentRecipeDetailBinding.inflate(inflater, container, false)
 
+        // Initialize the ViewModel
         recipeViewModel = ViewModelProvider(this).get(RecipeListViewModel::class.java)
+
+        // Get the recipe ID from arguments
         val recipeId = arguments?.getInt("recipe")
 
-        var recipe: RecipeModel?
-        recipeViewModel.recipeList.observe(viewLifecycleOwner){
-            recipes ->
-            recipe = recipes.find {it.id == recipeId }
-            recipe?.let { populateRecipeDetail(it) }
+        // Fetch and observe the selected recipe by ID
+        recipeId?.let { id ->
+            recipeViewModel.getRecipeById(id)
+            recipeViewModel.selectedRecipe.observe(viewLifecycleOwner) { recipe ->
+                recipe?.let { populateRecipeDetail(it) }
+            }
         }
-
-        recipeViewModel.fetchRecipeData()
 
         return binding.root
     }

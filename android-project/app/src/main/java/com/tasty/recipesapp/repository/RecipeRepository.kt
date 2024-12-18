@@ -1,14 +1,13 @@
 package com.tasty.recipesapp.repository
 
 import android.content.Context
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.tasty.recipesapp.api.RecipeApiClient
-import com.tasty.recipesapp.api.RecipeService
 import com.tasty.recipesapp.data.dto.RecipeDTO
 import com.tasty.recipesapp.domain.model.RecipeModel
 import java.io.IOException
-import java.io.InputStreamReader
 
 class RecipeRepository(private val context: Context, private val apiClient: RecipeApiClient) {
 
@@ -18,6 +17,15 @@ class RecipeRepository(private val context: Context, private val apiClient: Reci
     }
 
     private suspend fun readAllRecipesFromApi(): List<RecipeDTO> = apiClient.recipeService.getRecipes()
+
+    suspend fun getRecipeDetails(id: String): RecipeDTO {
+        try {
+            return apiClient.recipeService.getRecipeDetails(id)
+        } catch (e: Exception) {
+            Log.e("RecipeRepo", "Error fetching recipe details: ${e.message}",e)
+            throw e
+        }
+    }
 
     private fun readAllRecipesFromJson(context: Context): List<RecipeDTO> {
         val gson = Gson()

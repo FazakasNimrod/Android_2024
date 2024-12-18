@@ -9,7 +9,7 @@ interface RecipeService {
     @GET("api/recipes")
     suspend fun getRecipes(): List<RecipeDTO>
 
-    @GET("api/recipes/{id}")
+    @GET("api/recipes/{Id}")
     suspend fun getRecipeDetails(
         @Path("Id") id: String,
     ): RecipeDTO
